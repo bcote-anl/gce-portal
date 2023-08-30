@@ -1,6 +1,9 @@
 # This is a copy-paste of the gitignore file of the gcma-portal GitHub repository.
 # https://github.com/globus-gladier/gmca-portal
 
+# MacOS files
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
