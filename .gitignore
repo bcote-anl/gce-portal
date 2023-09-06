@@ -4,6 +4,9 @@
 # MacOS files
 .DS_Store
 
+# ACDC tools
+django-alcf-data-portal*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
