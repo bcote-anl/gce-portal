@@ -9,19 +9,32 @@ Create your environment and install packages:
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-python manage.py migrate
 ```
 
-Temporarily install tools available with the deployed ACDC
+Install ACDC tools that are available on the ACDC.
 
 ```
 git clone https://github.com/globusonline/django-alcf-data-portal.git
-cd django-alcf-data-portal.git
+cd django-alcf-data-portal/
 python setup.py develop
 ```
 
-And run the portal with:
+Once you have the alcf-data-portal application installed, perform the Django migration.
 
 ```
-python manage.py runserver
+cd ..
+python manage.py migrate
+```
+
+Add your Globus client details in testing/settings.py.
+
+```
+SOCIAL_AUTH_GLOBUS_KEY = 'your_client_ID_here'
+SOCIAL_AUTH_GLOBUS_SECRET = 'your_client_secret_here'
+```
+
+And run the portal with. Make sure your local host port matches the redirect URL of your Globus client.
+
+```
+python manage.py runserver localhost:8000
 ```
