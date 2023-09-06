@@ -33,3 +33,17 @@ def https_url(result):
     '''Return a direct download link to files over HTTPS'''
     path = result[0]['directory'] + "/" + result[0]['directory'] + ".npy"
     return urlunsplit(("https", "g-6996b.fd635.8443.data.globus.org", path, "", ""))
+
+
+# Preview HTTPS URL
+# =================
+def preview_https_url(result):
+    '''URL of the JSON preview data for HTTPS get requests'''
+    path = result[0]['directory'] + "/" + result[0]['directory'] + "_preview.json"
+    return urlunsplit(("https", "g-6996b.fd635.8443.data.globus.org", path, "", ""))
+
+
+# Collection ID
+# =============
+def collection_id(result):
+    return COLLECTION_ID

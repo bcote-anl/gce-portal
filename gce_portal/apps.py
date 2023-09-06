@@ -7,7 +7,7 @@ from gce_portal import fields
 APP_DIR = os.path.join(os.path.dirname(__file__))
 
 
-class GCEIndexConfig(AppConfig):
+class GCEPortalConfig(AppConfig):
     name = 'gce_portal'
 
 SEARCH_INDEXES = {
@@ -25,11 +25,11 @@ SEARCH_INDEXES = {
         ),
         'facets': [
           {
-            'name': 'Stellar yields',
+            'name': 'Stellar yields (table)',
             'field_name': 'table'
           },
           {
-            'name': 'Star formation efficiency',
+            'name': 'Star formation efficiency (sfe)',
             'field_name': 'sfe'
           },
         ],
@@ -37,6 +37,8 @@ SEARCH_INDEXES = {
             ("title", fields.title),
             ("globus_app_link", fields.globus_app_link),
             ("https_url", fields.https_url),
+            ("preview_https_url", fields.preview_https_url),
+            ("collection_id", fields.collection_id),
         ],
         "sort": [{"field_name": "table", "order": "asc"},
                  {"field_name": "sfe", "order": "asc"}],

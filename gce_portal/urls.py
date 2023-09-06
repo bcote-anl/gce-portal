@@ -1,6 +1,7 @@
 from django.urls import path
-from gce_portal import views
+
+# Name of the app to facilitate installation
+app_name = "gce_portal"
 
 urlpatterns = [
-#    path('exampleview/', views.example_view, name='exampleview')
 ]
