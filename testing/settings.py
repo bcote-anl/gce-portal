@@ -25,6 +25,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'insecure-local-key'
 
+# TEMPORATY CLIENT for local testing
+LOGIN_URL = '/login/globus'
+
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -33,6 +37,8 @@ ALLOWED_HOSTS = []
 SOCIAL_AUTH_GLOBUS_SCOPE = [
     'urn:globus:auth:scope:search.api.globus.org:search',
     'urn:globus:auth:scope:transfer.api.globus.org:all',
+    # Astroportal HTTPS data on an Eagle Shared Endpoint.
+    'https://auth.globus.org/scopes/96c76fb5-c70a-427c-a8d2-ea72eeff200b/https'
 ]
 
 
@@ -48,6 +54,7 @@ INSTALLED_APPS = [
     'globus_portal_framework',
     'gce_portal',
     'social_django',
+    'alcf_data_portal',
 ]
 
 MIDDLEWARE = [
@@ -100,6 +107,12 @@ LOGGING = {
     },
 }
 
+# For getting Globus access tokens for HTTPS requests
+ALLOWED_FRONTEND_TOKENS = [
+    "search.api.globus.org",
+    "transfer.api.globus.org",
+    "96c76fb5-c70a-427c-a8d2-ea72eeff200b",
+]
 
 WSGI_APPLICATION = 'testing.wsgi.application'
 
@@ -132,6 +145,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [ BASE_DIR / 'static']
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
