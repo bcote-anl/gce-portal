@@ -1,0 +1,110 @@
+{% extends 'globus-portal-framework/v2/detail-base.html' %}
+
+{% load static %}
+
+{% block breadcrumb_items %}
+<li class="breadcrumb-item"><a class="h5" href="{% url 'search' globus_portal_framework.index %}">{{globus_portal_framework.index_data.name}}</a></li>
+<li class="breadcrumb-item"><a class="h5">Search</a></li>
+<li class="breadcrumb-item active"><a class="h5">{{title|default:'Result Details'}}</a></li>
+{% endblock %}
+
+
+{% block detail_body %}
+
+<!-- Split screen into different columns -->
+<div class="row">
+
+    {% block detail_search_content %}
+
+    <!-- Preview data with PlotlyJS (left column) -->
+    <div class="col-md-7">
+        <div class="col" id="data-preview-plotly" style="height:500px; top: -30px;"></div>
+    </div>
+
+    <!-- Metadata description (right column) -->
+    <div class="col-md-5">
+
+        <!-- Explain the structure of the dataset -->
+        <br>
+        <h3>Data preview</h3>
+        <p id="data-preview-description">Attempting to load preview data ...</p>
+
+        <!-- Explain what is in the full dataset -->
+        <h3>Full dataset</h3>
+        <p>
+            The dataset offers a grid of models similar to the one shown
+            in the preview plot, but includes 100 different combinations 
+            for the rate of neutron star mergers and Type Ia supernovae.
+        </p>
+
+        <!-- Explains the serach index metadata fields -->
+        <h3>Index metadata</h3>
+        <p>
+            Metadata for the stellar yields table and star formation 
+            efficiency parameters, respectively.
+            Directory represents the unique run ID.
+        </p>
+        {% with all|first as project_metadata %}
+        {% include 'globus-portal-framework/v2/components/detail-general-metadata.html' %}
+        {% endwith %}
+
+    </div>
+
+
+    {% endblock %}
+</div>
+
+<!-- Scripts to pull and display preview data -->
+<!-- <script type="text/javascript" src="/static/gce_portal/gce_portal.js"></script> -->
+<script type="text/javascript" src="{% static 'gce_portal/gce_portal.js' %}"></script>
+<script src="{% static 'js/general-preview.js' %}"></script>
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<script>
+
+  // Access the data preview description HTML tag
+  previewDescription = document.getElementById('data-preview-description')
+
+  // If user is authenticated ...
+  if ("{{user}}" != "AnonymousUser") {
+
+    // Load the Json preview data via HTTPS get request (if user is authenticated)
+    getJsonData("{{preview_https_url}}", "{{collection_id}}", "{% url 'access_token' %}")
+    .then(previewData => {
+
+        // If the preview data can generate a Plotly plot ...
+        if (previewData.hasOwnProperty('data') && previewData.hasOwnProperty('layout')) {
+
+            // Display preview plot
+            previewPlot = document.getElementById('data-preview-plotly')
+            Plotly.newPlot( previewPlot, previewData.data, previewData.layout, {displayModeBar: false})
+
+            // Add plot description if available
+            if (previewData.hasOwnProperty('description')){
+                previewDescription.innerHTML = previewData.description
+            }
+            else{
+                previewDescription.innerHTML = "Warning - No 'description' field provided."
+            }
+        }
+
+        // Error message if preview data is not suitable
+        else {
+            previewDescription.innerHTML = "Error - Preview plot could not be displayed. Plotly requires the 'data' and 'layout' fields."
+        }
+        
+    })
+
+    // Error message if something went wrong with loading the preview Json document
+    .catch(err => {
+        previewDescription.innerHTML = "Error - Attempt to load Json data failed."
+    })
+  }
+
+  // Warning message if user not authenticated
+  else {
+    previewDescription.innerHTML = "Warning - Please authenticate to enable data preview."
+  }
+
+</script>
+
+{% endblock %}

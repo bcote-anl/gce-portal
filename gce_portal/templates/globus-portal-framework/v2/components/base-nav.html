@@ -1,0 +1,40 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark navbar-base-nav" style="background-color: black;">
+
+  <!-- ALCF logo and link to ACDC landing page -->
+  <a class="navbar-brand" href="{% block project_url %}{{ project_url|default:'/' }}{% endblock %}">
+    {% block project_title %}
+    <img src="{% static 'gce_portal/ANL_logo.png' %}" height="40px" width="100px" style="border-radius: 4px">
+    ALCF Community Data Co-op
+    {% endblock %}
+  </a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Login/logout -->
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto"></ul>
+    <ul class="navbar-nav my-lg-0">
+      {%if globus_portal_framework.auth_enabled and request.user.is_authenticated %}
+      <li>
+        <a class="nav-link nav-link-base-nav" href="{% url 'logout' %}?next=/" style="color: white;">Logout</a>
+      </li>
+      <li>
+        <a class="nav-link nav-link-base-nav" style="color: white;">{{request.user.username }}</a>
+      </li>
+      {% elif globus_portal_framework.auth_enabled %}
+      <li>
+        <a class="nav-link nav-link-base-nav btn btn-dark" 
+           href="{% url 'social:begin' 'globus' %}?next={{ request.get_full_path|urlencode }}"
+           style="background-color: black; color: white; border: none;">
+            <img src="{% static 'globus-portal-framework/images/globus.png' %}" height="32px" width="32px" style="border-radius: 4px">
+            Login
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+
+</nav>
