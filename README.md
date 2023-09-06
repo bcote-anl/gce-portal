@@ -3,9 +3,16 @@ An ACDC portal for the galactic chemical evolution (GCE) project. The search ind
 
 ### Development
 
+Clone repository
+
+```
+git clone https://github.com/bcote-anl/gce-portal.git
+```
+
 Create your environment and install packages:
 
 ```
+cd gce-portal/
 python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
