@@ -40,7 +40,9 @@ SOCIAL_AUTH_GLOBUS_KEY = 'your_client_ID_here'
 SOCIAL_AUTH_GLOBUS_SECRET = 'your_client_secret_here'
 ```
 
-Run the portal with the following command. Make sure your localhost port matches the redirect URL of your Globus client (see instructions [here](https://django-globus-portal-framework.readthedocs.io/en/latest/tutorial/installation-and-setup.html#settings)).
+Run the portal with the following command. Make sure your localhost port matches the redirect URL of your Globus client (see instructions [here](https://django-globus-portal-framework.readthedocs.io/en/latest/tutorial/installation-and-setup.html#globus-auth)).
+
+
 
 ```
 python manage.py runserver localhost:8000
