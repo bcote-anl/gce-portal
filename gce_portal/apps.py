@@ -17,7 +17,7 @@ SEARCH_INDEXES = {
         'base_templates': 'globus-portal-framework/v2/',
         'tabbed_project': False,
         'access': 'private',
-        'template_override_dir': 'gce',
+        'template_override_dir': 'gce-portal',
         'description': (
             'Galactic Chemical Evolution (GCE) is a field of astronomy '
             'that studies the origin and evolution of the elements '
