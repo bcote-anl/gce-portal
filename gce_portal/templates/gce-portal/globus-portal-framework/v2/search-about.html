@@ -2,10 +2,9 @@
 {% load is_active index_template is_active %}
 
 {% block breadcrumb_items %}
-{{block.super}}
-<li class="breadcrumb-item {% is_active request 'search-about' index=globus_portal_framework.index %}">
-  <a class="h5">About</a>
-</li>
+
+<li class="breadcrumb-item"><a class="h5" href="{% url 'search' globus_portal_framework.index %}">{{globus_portal_framework.index_data.name}}</a></li>
+<li class="breadcrumb-item active"><a class="h5">About</a></li>
 {% endblock %}
 
 {% block body %}
