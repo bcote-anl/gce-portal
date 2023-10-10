@@ -1,0 +1,25 @@
+body {
+    font-family: 'Helvetica Neue', sans-serif !important;
+}
+
+.breadcrumb, .breadcrumb-item {
+    background-color: rgb(233, 233, 233) !important;
+    color: rgb(122, 122, 122) !important;
+}
+
+.jumbotron-header, .jumbotron-header.p.lead, .nav-search-nav {
+    border-radius: 0;
+    background-color: white;
+}
+
+.text-black {
+    color: rgb(15, 14, 14);
+}
+
+.text-white {
+    color: rgb(232, 232, 232);
+}
+
+.navbar-dark, .nav, .nav-link-base-nav {
+    color: rgb(232, 232, 232) !important;
+}
